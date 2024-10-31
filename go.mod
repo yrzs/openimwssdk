@@ -7,7 +7,7 @@ require (
 	github.com/gorilla/websocket v1.5.0
 	github.com/stretchr/testify v1.8.3
 	github.com/xuexihuang/new_log15 v1.0.0
-	github.com/yrzs/openimsdkcore v1.0.1
+	github.com/yrzs/openimsdkcore v1.0.3
 	github.com/yrzs/openimsdktools v0.0.0-20241030091818-c2b9a338f4a7
 )
 
@@ -41,7 +41,6 @@ require (
 	github.com/petermattis/goid v0.0.0-20230904192822-1876fd5063bc // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
-	github.com/yrzs/openimsdkprotocol v1.0.1 // indirect
 	go.uber.org/atomic v1.7.0 // indirect
 	go.uber.org/multierr v1.6.0 // indirect
 	go.uber.org/zap v1.24.0 // indirect
