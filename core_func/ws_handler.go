@@ -4,18 +4,18 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk_callback"
+	"github.com/yrzs/openimsdkcore/open_im_sdk_callback"
 	"reflect"
 	"runtime"
 	"runtime/debug"
 	"strings"
 	"time"
 
-	"github.com/OpenIMSDK/tools/log"
-	"github.com/openimsdk/openim-sdk-core/v3/open_im_sdk"
-	"github.com/openimsdk/openim-sdk-core/v3/pkg/ccontext"
-	"github.com/openimsdk/openim-sdk-core/v3/pkg/sdkerrs"
-	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
+	"github.com/yrzs/openimsdkcore/open_im_sdk"
+	"github.com/yrzs/openimsdkcore/pkg/ccontext"
+	"github.com/yrzs/openimsdkcore/pkg/sdkerrs"
+	"github.com/yrzs/openimsdkcore/pkg/utils"
+	"github.com/yrzs/openimsdktools/log"
 )
 
 const (

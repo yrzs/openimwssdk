@@ -4,8 +4,8 @@ import (
 	"fmt"
 	log "github.com/xuexihuang/new_log15"
 
-	"github.com/OpenIMSDK/tools/errs"
-	"github.com/openimsdk/openim-sdk-core/v3/pkg/sdkerrs"
+	"github.com/yrzs/openimsdkcore/pkg/sdkerrs"
+	"github.com/yrzs/openimsdktools/errs"
 )
 
 type RespMessage struct {

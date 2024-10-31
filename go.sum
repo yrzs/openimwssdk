@@ -1,7 +1,3 @@
-github.com/OpenIMSDK/protocol v0.0.40 h1:1/Oij6RSAaePCPrWGwp9Cyz976/8Uxr94hM5M5FXzlg=
-github.com/OpenIMSDK/protocol v0.0.40/go.mod h1:F25dFrwrIx3lkNoiuf6FkCfxuwf8L4Z8UIsdTHP/r0Y=
-github.com/OpenIMSDK/tools v0.0.24 h1:P8n7ZtsZEbm4W3dQAem29O+bigzy6YPXxFzd/D8Vh3U=
-github.com/OpenIMSDK/tools v0.0.24/go.mod h1:eg+q4A34Qmu73xkY0mt37FHGMCMfC6CtmOnm0kFEGFI=
 github.com/benbjohnson/clock v1.1.0 h1:Q92kusRqC1XV2MjkWETPvjJVqKetz1OzxZB7mHJLju8=
 github.com/benbjohnson/clock v1.1.0/go.mod h1:J11/hYXuz8f4ySSvYwY0FKfm+ezbsZBKZxNJlLklBHA=
 github.com/bwmarrin/snowflake v0.3.0 h1:xm67bEhkKh6ij1790JB83OujPR5CzNe8QuQqAgISZN0=
@@ -47,10 +43,6 @@ github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd h1:TRLaZ9cD/w
 github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd/go.mod h1:6dJC0mAP4ikYIbvyc7fijjWJddQyLn8Ig3JB5CqoB9Q=
 github.com/modern-go/reflect2 v1.0.2 h1:xBagoLtFs94CBntxluKeaWgTMpvLxC4ur3nMaC9Gz0M=
 github.com/modern-go/reflect2 v1.0.2/go.mod h1:yWuevngMOJpCy52FWWMvUC8ws7m/LJsjYzDa0/r8luk=
-github.com/nfnt/resize v0.0.0-20180221191011-83c6a9932646 h1:zYyBkD/k9seD2A7fsi6Oo2LfFZAehjjQMERAvZLEDnQ=
-github.com/nfnt/resize v0.0.0-20180221191011-83c6a9932646/go.mod h1:jpp1/29i3P1S/RLdc7JQKbRpFeM1dOBd8T9ki5s+AY8=
-github.com/openimsdk/openim-sdk-core/v3 v3.5.1-beta.1 h1:e9BCnot/E20srgdAYX6U/vdAt8QEogmlAPkv8T9VViM=
-github.com/openimsdk/openim-sdk-core/v3 v3.5.1-beta.1/go.mod h1:d2aVHT6pSYthQQd+/4JaruHPTLsQV2D+eQisRQkoP3I=
 github.com/patrickmn/go-cache v2.1.0+incompatible h1:HRMgzkcYKYpi3C8ajMPV8OFXaaRUnok+kx1WdO15EQc=
 github.com/patrickmn/go-cache v2.1.0+incompatible/go.mod h1:3Qf8kWWT7OJRJbdiICTKqZju1ZixQ/KpMGzzAfe6+WQ=
 github.com/petermattis/goid v0.0.0-20230904192822-1876fd5063bc h1:8bQZVK1X6BJR/6nYUPxQEP+ReTsceJTKizeuwjWOPUA=
@@ -65,6 +57,12 @@ github.com/stretchr/testify v1.8.3 h1:RP3t2pwF7cMEbC1dqtB6poj3niw/9gnV4Cjg5oW5gt
 github.com/stretchr/testify v1.8.3/go.mod h1:sz/lmYIOXD/1dqDmKjjqLyZ2RngseejIcXlSw2iwfAo=
 github.com/xuexihuang/new_log15 v1.0.0 h1:rIfjUeC4dgkjDYvbb6zv3q4Jk/aSvBo03UJ1mJCyJvg=
 github.com/xuexihuang/new_log15 v1.0.0/go.mod h1:psqerkM8mBbXXWN8DG3NUo33C3Hyr9RsaRjq8VfyA2c=
+github.com/yrzs/openimsdkcore v0.0.0-20241030094314-a099c05f5700 h1:iam2bD1GI5vxACQiFhdGy4unz+C0QpMol/CQjfPWNiA=
+github.com/yrzs/openimsdkcore v0.0.0-20241030094314-a099c05f5700/go.mod h1:snYcE/k3EX0NO1gy2F9dIPuViO9jKqqRo+5r0vJGDsE=
+github.com/yrzs/openimsdkprotocol v0.0.0-20241030092424-c7333d39230a h1:ooRuHawUN7JfpFrx7YDGiC4nSB0iJ/WlGCQMK5SrX20=
+github.com/yrzs/openimsdkprotocol v0.0.0-20241030092424-c7333d39230a/go.mod h1:Z27AlIi3d7o5UFtKtBDaBy5vV/XK6ehL5x7OV5FcKJs=
+github.com/yrzs/openimsdktools v0.0.0-20241030091818-c2b9a338f4a7 h1:rR+C9pYO7Zd0+KYVGftKn5X2SXGU3bE5tmTCXnbP1gc=
+github.com/yrzs/openimsdktools v0.0.0-20241030091818-c2b9a338f4a7/go.mod h1:NgwTjgblqwbTXpM7nfyT1mLJKrCijlzlH8lJ2Piz6Rs=
 go.uber.org/atomic v1.7.0 h1:ADUqmZGgLDDfbSL9ZmPxKTybcoEYHgpYfELNoN+7hsw=
 go.uber.org/atomic v1.7.0/go.mod h1:fEN4uk6kAWBTFdckzkM89CLk9XfWZrxpCo0nPH17wJc=
 go.uber.org/goleak v1.1.11 h1:wy28qYRKZgnJTxGxvye5/wgWr1EKjmUDGYox5mGlRlI=

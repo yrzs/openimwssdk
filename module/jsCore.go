@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/openimsdk/openim-sdk-core/v3/pkg/utils"
+	"github.com/yrzs/openimsdkcore/pkg/utils"
 
 	"github.com/yrzs/openimwssdk/core_func"
 )
