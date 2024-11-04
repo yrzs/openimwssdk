@@ -5,8 +5,8 @@ import (
 	"net"
 	"sync"
 
+	"github.com/go-kratos/kratos/v2/log"
 	"github.com/gorilla/websocket"
-	log "github.com/xuexihuang/new_log15"
 	"github.com/yrzs/openimwssdk/common"
 )
 

@@ -2,14 +2,12 @@ package network
 
 import (
 	"crypto/tls"
-	"fmt"
+	"github.com/go-kratos/kratos/v2/log"
+	"github.com/yrzs/openimwssdk/common"
 	"net"
 	"net/http"
 	"sync"
 	"time"
-
-	log "github.com/xuexihuang/new_log15"
-	"github.com/yrzs/openimwssdk/common"
 
 	"github.com/gorilla/websocket"
 )
@@ -46,13 +44,12 @@ func (handler *WSHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	var cookieVal string
-	/*
-		cookieToken, err := r.Cookie("token")
-		if err != nil {
-			log.Info("http的cookie中没有对应token", "err", err)
-		} else {
-			cookieVal = cookieToken.Value
-		}*/
+	//cookieToken, err := r.Cookie("token")
+	//if err != nil {
+	//	log.Info("http的cookie中没有对应token", "err", err)
+	//} else {
+	//	cookieVal = cookieToken.Value
+	//}
 	token := r.Header.Get("Authorization")
 	if token != "" && len(token) > 7 {
 		cookieVal = token[7:]
@@ -61,7 +58,7 @@ func (handler *WSHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 	log.Info("token info", "token", cookieVal)
 
-	fmt.Println("url is:", r.URL.Path)
+	log.Info("ws url is:", r.URL.Path)
 	conn, err := handler.upgrader.Upgrade(w, r, nil)
 	if err != nil {
 		log.Error("upgrade error", "err", err, "remoteIp", r.Host)
@@ -70,7 +67,10 @@ func (handler *WSHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	conn.SetReadLimit(int64(handler.maxMsgLen))
 	_ = conn.SetReadDeadline(time.Now().Add(30 * time.Second))
 	conn.SetPongHandler(func(appData string) error {
-		conn.SetReadDeadline(time.Now().Add(30 * time.Second))
+		err := conn.SetReadDeadline(time.Now().Add(30 * time.Second))
+		if err != nil {
+			log.Error("set read deadline error", "err", err)
+		}
 		log.Info("js replying with a pong packet.")
 		return nil
 	})
@@ -114,7 +114,7 @@ func (server *WSServer) Start() {
 	ln, err := net.Listen("tcp", server.Addr)
 	if err != nil {
 		//log.Fatal("%v", err)
-		log.Crit("net.listen err", "err", err)
+		log.Fatal("net.listen err", "err", err)
 	}
 
 	if server.MaxConnNum <= 0 {
@@ -139,7 +139,7 @@ func (server *WSServer) Start() {
 	}
 	if server.NewAgent == nil {
 		//log.Fatal("NewAgent must not be nil")
-		log.Crit("NewAgent must not be nil")
+		log.Fatal("NewAgent must not be nil")
 	}
 
 	if server.CertFile != "" || server.KeyFile != "" {
@@ -151,7 +151,7 @@ func (server *WSServer) Start() {
 		config.Certificates[0], err = tls.LoadX509KeyPair(server.CertFile, server.KeyFile)
 		if err != nil {
 			//log.Fatal("%v", err)
-			log.Crit("cerfiti file error", "err", err)
+			log.Fatal("cerfiti file error", "err", err)
 		}
 
 		ln = tls.NewListener(ln, config)

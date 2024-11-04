@@ -4,7 +4,7 @@ import (
 	"sync"
 	"time"
 
-	log "github.com/xuexihuang/new_log15"
+	"github.com/go-kratos/kratos/v2/log"
 
 	"github.com/gorilla/websocket"
 )
@@ -72,11 +72,11 @@ func (client *WSClient) init() {
 	}
 	if client.NewAgent == nil {
 		//log.Fatal("NewAgent must not be nil")
-		log.Crit("NewAgent must not be nil")
+		log.Fatal("NewAgent must not be nil")
 	}
 	if client.conns != nil {
 		//log.Fatal("client is running")
-		log.Crit("client is running")
+		log.Fatal("client is running")
 	}
 
 	client.conns = make(WebsocketConnSet)

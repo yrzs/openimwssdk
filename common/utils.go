@@ -3,18 +3,18 @@ package common
 import (
 	"fmt"
 	"github.com/bwmarrin/snowflake"
-	log "github.com/xuexihuang/new_log15"
+	"github.com/go-kratos/kratos/v2/log"
 	"runtime/debug"
 )
 
-// Method used to capture panic and print stack information.
+// TryRecoverAndDebugPrint Method used to capture panic and print stack information.
 func TryRecoverAndDebugPrint() {
 	errs := recover()
 	if errs == nil {
 		return
 	}
 	fmt.Printf("panic: %+v\n%s", errs, debug.Stack())
-	log.Crit("[Panic]", "err", errs, "stackInfo", debug.Stack())
+	log.Fatal("[Panic]", "err", errs, "stackInfo", debug.Stack())
 
 }
 

@@ -9,7 +9,7 @@ import (
 	"syscall"
 	"time"
 
-	log "github.com/xuexihuang/new_log15"
+	"github.com/go-kratos/kratos/v2/log"
 	"github.com/yrzs/openimwssdk/core_func"
 	"github.com/yrzs/openimwssdk/gate"
 	"github.com/yrzs/openimwssdk/module"
@@ -76,7 +76,6 @@ func main() {
 	core_func.Config.DataDir = *openIMDbDir
 	core_func.Config.LogLevel = uint32(*logLevel)
 	core_func.Config.IsLogStandardOutput = true
-	log.SetOutLevel(log.LvlInfo)
 	fmt.Println("Client starting....")
 	log.Info("Client starting....")
 	gatenet := Initsever(*sdkWsPort)

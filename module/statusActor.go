@@ -2,7 +2,7 @@ package module
 
 import (
 	"encoding/json"
-	log "github.com/xuexihuang/new_log15"
+	"github.com/go-kratos/kratos/v2/log"
 	"github.com/yrzs/openimwssdk/common"
 	"github.com/yrzs/openimwssdk/gate"
 	"sync"

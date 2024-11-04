@@ -2,7 +2,7 @@ package core_func
 
 import (
 	"fmt"
-	log "github.com/xuexihuang/new_log15"
+	"github.com/go-kratos/kratos/v2/log"
 
 	"github.com/yrzs/openimsdkcore/pkg/sdkerrs"
 	"github.com/yrzs/openimsdktools/errs"
