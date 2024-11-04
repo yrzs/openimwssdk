@@ -17,7 +17,7 @@ const (
 
 // InitSDK initializes the SDK with the given operation ID and platform ID.
 func (f *FuncRouter) InitSDK(operationID, platformID string) {
-	log.Infof("InitSDK:  platformID: %s, operationID: %s", operationID, platformID)
+	log.Infof("InitSDK:  platformID: %s, operationID: %s", platformID, operationID)
 	callback := NewConnCallback(f.respMessage)
 	j, err := strconv.ParseInt(platformID, 10, 64)
 	if err != nil {
