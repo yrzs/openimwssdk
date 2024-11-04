@@ -1,12 +1,11 @@
 package core_func
 
 import (
-	"fmt"
 	"strconv"
 
+	"github.com/go-kratos/kratos/v2/log"
 	"github.com/yrzs/openimsdkcore/pkg/sdkerrs"
 	"github.com/yrzs/openimsdkcore/sdk_struct"
-	"github.com/yrzs/openimsdktools/log"
 )
 
 var Config sdk_struct.IMConfig
@@ -18,7 +17,7 @@ const (
 
 // InitSDK initializes the SDK with the given operation ID and platform ID.
 func (f *FuncRouter) InitSDK(operationID, platformID string) {
-	fmt.Println("InitSDK", "data=", platformID, operationID)
+	log.Infof("InitSDK:  platformID: %s, operationID: %s", operationID, platformID)
 	callback := NewConnCallback(f.respMessage)
 	j, err := strconv.ParseInt(platformID, 10, 64)
 	if err != nil {
@@ -35,12 +34,13 @@ func (f *FuncRouter) InitSDK(operationID, platformID string) {
 		LogFilePath:          Config.LogFilePath,
 		IsExternalExtensions: Config.IsExternalExtensions,
 	}
-	if err := log.InitFromConfig("open-im-sdk-core", "",
-		int(config.LogLevel), config.IsLogStandardOutput, false, config.LogFilePath,
-		rotateCount, rotationTime); err != nil {
-		f.respMessage.sendOnErrorResp(operationID, "InitSDK", err)
-		return
-	}
+	// 日志 用 kratos 框架的日志
+	//if err := log.InitFromConfig("open-im-sdk-core", "",
+	//	int(config.LogLevel), config.IsLogStandardOutput, false, config.LogFilePath,
+	//	rotateCount, rotationTime); err != nil {
+	//	f.respMessage.sendOnErrorResp(operationID, "InitSDK", err)
+	//	return
+	//}
 	if f.userForSDK.InitSDK(config, callback) {
 		f.respMessage.sendOnSuccessResp(operationID, "InitSDK", "")
 	} else {
@@ -48,15 +48,14 @@ func (f *FuncRouter) InitSDK(operationID, platformID string) {
 	}
 }
 
-// UnInitSDK uninitializes the SDK.
+// UnInitSDK unInitializes the SDK.
 func (f *FuncRouter) UnInitSDK(operationID string) {
 	if f.userForSDK == nil {
-		fmt.Println(operationID, "UserForSDK is nil,")
+		log.Errorf("UserForSDK is nil, operationID: %s", operationID)
 		return
 	}
 	f.userForSDK.UnInitSDK()
 	f.userForSDK = nil
-
 }
 
 // Login logs in a user using the provided arguments.

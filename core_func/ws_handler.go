@@ -11,11 +11,11 @@ import (
 	"strings"
 	"time"
 
+	"github.com/go-kratos/kratos/v2/log"
 	"github.com/yrzs/openimsdkcore/open_im_sdk"
 	"github.com/yrzs/openimsdkcore/pkg/ccontext"
 	"github.com/yrzs/openimsdkcore/pkg/sdkerrs"
 	"github.com/yrzs/openimsdkcore/pkg/utils"
-	"github.com/yrzs/openimsdktools/log"
 )
 
 const (
@@ -37,13 +37,30 @@ type FuncRouter struct {
 	sessionId   string
 }
 
-// NewFuncRouter creates a new instance of FuncRouter with the provided session id and channel for event data.
+// NewFuncRouter 创建并返回一个FuncRouter实例
+//
+//	respMessagesChan: 用于接收事件数据的通道
+//	sessionId: 会话ID
+//	*FuncRouter: 指向新创建的FuncRouter实例的指针
 func NewFuncRouter(respMessagesChan chan *EventData, sessionId string) *FuncRouter {
 	return &FuncRouter{respMessage: NewRespMessage(respMessagesChan),
 		userForSDK: new(open_im_sdk.LoginMgr), sessionId: sessionId}
 }
 
-// call is an asynchronous wrapper that invokes SDK functions and handles their responses.
+// call 函数用于异步调用指定的函数，并处理调用结果
+//
+// 使用go关键字启动一个新的goroutine来异步调用指定的函数fn，并处理调用结果。
+// 首先，通过reflect包获取函数指针，并使用runtime包获取函数名。
+// 然后，对函数名进行分割处理，获取实际的函数名称。
+// 如果处理后的函数名为空，则通过respMessage发送错误响应。
+// 否则，调用call_函数执行实际的函数调用，并处理调用结果。
+// 如果调用成功，则将结果转换为JSON字符串，并通过respMessage发送成功响应。
+// 如果调用失败或结果转换失败，则通过respMessage发送错误响应。
+//
+//     operationID: 操作ID，用于标识请求的唯一性
+//     fn: 要调用的函数
+//     args: 传递给函数的参数列表
+
 func (f *FuncRouter) call(operationID string, fn any, args ...any) {
 	go func() {
 		funcPtr := reflect.ValueOf(fn).Pointer()
@@ -117,7 +134,7 @@ func (f *FuncRouter) call_(operationID string, fn any, funcName string, args ...
 		return nil, sdkerrs.ErrSdkInternal.Wrap(fmt.Sprintf("go code error: fn in args num is not match"))
 	}
 	t := time.Now()
-	log.ZInfo(ctx, "input req", "function name", funcName, "args", args)
+	log.Info(ctx, "input req", "function name", funcName, "args", args)
 	ins := make([]reflect.Value, 0, nin)
 	ins = append(ins, reflect.ValueOf(ctx))
 	for i := 0; i < len(args); i++ {
@@ -167,7 +184,7 @@ func (f *FuncRouter) call_(operationID string, fn any, funcName string, args ...
 	}
 	if fnt.Out(len(outs) - 1).Implements(reflect.ValueOf(new(error)).Elem().Type()) {
 		if errValueOf := outs[len(outs)-1]; !errValueOf.IsNil() {
-			log.ZError(ctx, "fn call error", errValueOf.Interface().(error), "function name",
+			log.Error(ctx, "fn call error", errValueOf.Interface().(error), "function name",
 				funcName, "cost time", time.Since(t))
 			return nil, errValueOf.Interface().(error)
 		}
@@ -190,7 +207,7 @@ func (f *FuncRouter) call_(operationID string, fn any, funcName string, args ...
 		}
 	}
 	if len(outs) == 1 {
-		log.ZInfo(ctx, "output resp", "function name", funcName, "resp", outs[0].Interface(),
+		log.Info(ctx, "output resp", "function name", funcName, "resp", outs[0].Interface(),
 			"cost time", time.Since(t))
 		return outs[0].Interface(), nil
 	}
@@ -198,7 +215,7 @@ func (f *FuncRouter) call_(operationID string, fn any, funcName string, args ...
 	for i := range outs {
 		val = append(val, outs[i].Interface())
 	}
-	log.ZInfo(ctx, "output resp", "function name", funcName, "resp", val, "cost time", time.Since(t))
+	log.Info(ctx, "output resp", "function name", funcName, "resp", val, "cost time", time.Since(t))
 	return val, nil
 }
 func isInteger(arg reflect.Type) bool {
@@ -286,7 +303,7 @@ func (f *FuncRouter) messageCall_(callback open_im_sdk_callback.SendMsgCallBack,
 	if fnv.Kind() != reflect.Func {
 		return nil, sdkerrs.ErrSdkInternal.Wrap(fmt.Sprintf("call function fn is not function, is %T", fn))
 	}
-	log.ZInfo(ctx, "input req", "function name", funcName, "args", args)
+	log.Info(ctx, "input req", "function name", funcName, "args", args)
 	fnt := fnv.Type()
 	nin := fnt.NumIn()
 	if len(args)+1 != nin {
@@ -340,7 +357,7 @@ func (f *FuncRouter) messageCall_(callback open_im_sdk_callback.SendMsgCallBack,
 	}
 	if fnt.Out(len(outs) - 1).Implements(reflect.ValueOf(new(error)).Elem().Type()) {
 		if errValueOf := outs[len(outs)-1]; !errValueOf.IsNil() {
-			log.ZError(ctx, "fn call error", errValueOf.Interface().(error), "function name",
+			log.Error(ctx, "fn call error", errValueOf.Interface().(error), "function name",
 				funcName, "cost time", time.Since(t))
 			return nil, errValueOf.Interface().(error)
 		}
@@ -360,10 +377,12 @@ func (f *FuncRouter) messageCall_(callback open_im_sdk_callback.SendMsgCallBack,
 			if out.IsNil() {
 				outs[i] = reflect.MakeSlice(out.Type(), 0, 0)
 			}
+		default:
+			log.Errorf("unhandled default case out.Kind():%v", out.Kind())
 		}
 	}
 	if len(outs) == 1 {
-		log.ZInfo(ctx, "output resp", "function name", funcName, "resp", outs[0].Interface(),
+		log.Info(ctx, "output resp", "function name", funcName, "resp", outs[0].Interface(),
 			"cost time", time.Since(t))
 		return outs[0].Interface(), nil
 	}
@@ -371,6 +390,6 @@ func (f *FuncRouter) messageCall_(callback open_im_sdk_callback.SendMsgCallBack,
 	for i := range outs {
 		val = append(val, outs[i].Interface())
 	}
-	log.ZInfo(ctx, "output resp", "function name", funcName, "resp", val, "cost time", time.Since(t))
+	log.Info(ctx, "output resp", "function name", funcName, "resp", val, "cost time", time.Since(t))
 	return val, nil
 }

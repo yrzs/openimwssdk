@@ -3,7 +3,6 @@ module github.com/yrzs/openimwssdk
 go 1.23.2
 
 require (
-	github.com/bwmarrin/snowflake v0.3.0
 	github.com/go-kratos/kratos/v2 v2.7.3
 	github.com/gorilla/websocket v1.5.0
 	github.com/stretchr/testify v1.8.3
@@ -24,6 +23,7 @@ require (
 )
 
 require (
+	github.com/bwmarrin/snowflake v0.3.0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/golang/protobuf v1.5.3 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
